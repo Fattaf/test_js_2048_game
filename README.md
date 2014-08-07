@@ -1,4 +1,4 @@
-test_js_2048_game
+Game 2048 on java script
 =================
 
-for training purposes only
+for training purposes only.
