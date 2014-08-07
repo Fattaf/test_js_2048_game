@@ -1,0 +1,25 @@
+.game-container {
+  height: 500px;
+  width: 500px;
+  border-radius: 6px;
+  background: none repeat scroll 0 0 #bbada0;
+}
+
+.game-row {
+  display: block;
+  padding: 2px;
+  padding-left: 10px;
+}
+
+.game-cell {
+  float: left;
+  margin: 10px;
+  height: 100px;
+  width: 100px;
+  border-radius: 6px;
+  border-color: #eee4da;
+  background: none repeat scroll 0 0 #eee4da;
+  text-align: center;
+  font: bold 300%/100px block;
+  color: #776e65;
+}
