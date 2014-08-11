@@ -1,23 +1,26 @@
 (function () {
 
   // for test only
-  fillDraw = function(matrixArray, n) {
+  var fillDraw = function(matrixArray, n) {
     for(var i = 0; i < n; i++) {
       for(var j = 0; j < n; j++) {
         var tmpVal = '';
         if (matrixArray[i][j] !== undefined) {
-          tmpVal = matrixArray[i][j]
+          tmpVal = matrixArray[i][j];
         };
         $('#cell_' + i + '_' + j).text(tmpVal);
       };
     };
   };
 
-  countNullList = function(matrixArray, n) {
+  var makeMatrix = function(array, n) {
+    for(var i = 0; i < n; i++) { array[i] = new Array(n); };
+  };
+
+  var countNullList = function(matrixArray, n) {
     var nullList = [];
     for(var i = 0; i < n; i++) {
       for(var j = 0; j < n; j++) {
-        var tmpVal = 0;
         if (matrixArray[i][j] === undefined) {
           nullList.push(i * 10 + j);
         };
@@ -26,10 +29,10 @@
     return nullList;
   };
 
-  fillCellRandomly = function(matrixArray, n) {
-    var nullList = countNullList(matrixArray, n);
-    var num = 0;
-    var randValue = (Math.floor(1+(Math.random()*2)))*2;
+  var fillCellRandomly = function(matrixArray, n) {
+    var nullList = countNullList(matrixArray, n),
+        num = 0,
+        randValue = (Math.floor(1+(Math.random()*2)))*2;
 
     switch (nullList.length) {
       case 0:
@@ -44,11 +47,8 @@
     return true;
   };
 
-  makeMatrix = function(array, n) {
-    for(var i = 0; i < n; i++) { array[i] = new Array(n) }
-  };
 
-  isNoVariants = function(matrixArray, n) {
+  var isNoVariants = function(matrixArray, n) {
     for(var i = 0; i < n; i++) {
       for(var j = 0; j < n; j++) {
         if (((j+1 < n) && (matrixArray[i][j] == matrixArray[i][j+1])) ||
@@ -62,10 +62,10 @@
     return true;
   };
 
-  isFullGrid = function(matrixArray, n) {
+  var isFullGrid = function(matrixArray, n) {
     for(var i = 0; i < n; i++) {
       for(var j = 0; j < n; j++) {
-        if ((matrixArray[i][j] == undefined) || (matrixArray[i][j] == null))  {
+        if ((matrixArray[i][j] === undefined) || (matrixArray[i][j] === null)) {
           return false;
         };
       };
@@ -73,14 +73,14 @@
     return true;
   };
 
-  isFail = function(matrixArray, n) {
+  var isFail = function(matrixArray, n) {
     if ((isFullGrid(matrixArray, n)) && (isNoVariants(matrixArray, n))) {
       return true;
     };
     return false;
   };
 
-  isWin = function(matrixArray, n, etalonNum) {
+  var isWin = function(matrixArray, n, etalonNum) {
     for(var i = 0; i < n; i++) {
       for(var j = 0; j < n; j++) {
         if (matrixArray[i][j] == etalonNum) {
@@ -91,7 +91,7 @@
     return false;
   };
 
-  pushLeft = function(matrixArray, n) {
+  var pushLeft = function(matrixArray, n) {
     for(var i = 0; i < n; i++) {
       for(var j = 0; j < n; j++) {
         if ((matrixArray[i][j] !== undefined) && (j > 0)) {
@@ -111,7 +111,7 @@
     };
   };
 
-  pushUp = function(matrixArray, n) {
+  var pushUp = function(matrixArray, n) {
     for(var i = 0; i < n; i++) {
       for(var j = 0; j < n; j++) {
         if ((matrixArray[j][i] !== undefined) && (j > 0)) {
@@ -131,7 +131,7 @@
     };
   };
 
-  pushDown = function(matrixArray, n) {
+  var pushDown = function(matrixArray, n) {
     for(var i = 0; i < n; i++) {
       for(var j = (n-1); j >= 0; j--) {
         if ((matrixArray[j][i] !== undefined) && (j < (n-1))) {
@@ -151,7 +151,7 @@
     };
   };
 
-  pushRight = function(matrixArray, n) {
+  var pushRight = function(matrixArray, n) {
     for(var i = 0; i < n; i++) {
       for(var j = (n-1); j >= 0; j--) {
         if ((matrixArray[i][j] !== undefined) && (j < (n-1))) {
@@ -173,9 +173,9 @@
 
 // ---------------------------------------------------------------
 
-  var winValue = 2048;
-  var arrayLength = 4;
-  var field = new Array(arrayLength);
+  var winValue = 2048,
+      arrayLength = 4,
+      field = new Array(arrayLength);
 
   // initialization
   makeMatrix(field, arrayLength);
@@ -210,7 +210,7 @@
         fillDraw(field, arrayLength);
 
         if (isWin(field, arrayLength, winValue)) { alert("Win"); };
-        if (isFail(field, arrayLength)) { alert("Fail") };
+        if (isFail(field, arrayLength)) { alert("Fail"); };
       };
     });
   });
